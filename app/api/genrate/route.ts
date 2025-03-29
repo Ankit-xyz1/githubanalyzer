@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { GoogleGenAI } from "@google/genai";
 
 const ai = new GoogleGenAI({
-  apiKey: "AIzaSyAlAel9r8ieQxwmok-IOjtRRkT8m80nVRE",
+  apiKey: "yourApiKey",
 });
 
 export async function GET() {
