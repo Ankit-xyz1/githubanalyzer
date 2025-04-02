@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 import counterReducer from '../slice/counterSlice'
+import chatReducer from '../slice/chatsSlice'
 
 
 const store = configureStore({
   reducer: {
     counter: counterReducer, // Add slice reducer
+    chats:chatReducer,
   },
 });
 

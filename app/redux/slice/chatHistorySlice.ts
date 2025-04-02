@@ -1,11 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit"
 
+interface chatHistoryState{
+    value:any[]
+}
+
+const initialState:chatHistoryState={
+    value:[]
+}
 export const chatHistorySlice = createSlice({
     name:"chatHistory",
-    initialState:{
-        value:[]
-    },
+    initialState,
     reducers:{
+        loadChatsHistoryFromLocalStorage: (state,action) => {
+           const loadedChat =  JSON.parse(localStorage.getItem("chatHistory") || "[]");
+           state.value =  Array.isArray(loadedChat)? loadedChat : []
+        },
 
     }
 })

@@ -4,7 +4,7 @@ import { SidebarDemo } from './Sidebar'
 
 const MainComp = () => {
   return (<>
-  <div className='h-fit bg-zinc-900'>
+  <div className='h-fit bg-zinc-950'>
 
     <div className=' w-full min-h-[10vh]'>
       <Navbar1 />

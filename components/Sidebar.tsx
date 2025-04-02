@@ -49,7 +49,7 @@ export function SidebarDemo() {
   return (
     <div
       className={cn(
-        "mx-auto flex w-full flex-1 flex-col overflow-hidden rounded-md border border-zinc-700 bg-zinc-900 md:flex-row",
+        "mx-auto flex w-full flex-1 flex-col overflow-hidden rounded-md border border-zinc-700 bg-zinc-950 md:flex-row",
         "h-[85vh]", // for your use case, use `h-screen` instead of `h-[60vh]`
       )}
     >
@@ -61,11 +61,11 @@ export function SidebarDemo() {
             </>
             <div className="mt-8 flex flex-col gap-2 text-white">
 
-              <button className=" w-[90%] bg-zinc-800 h-fit py-2 px-1 text-left rounded cursor-pointer hover:bg-zinc-700 transition-all ease-in duration-200  flex gap-2 items-center overflow-hidden"> <Plus strokeWidth={4} className="h-4 w-4 font-bold shrink-0" />  NewChat </button>
-              <button className="w-[90%] bg-zinc-800 h-fit py-2 px-1 text-left rounded cursor-pointer hover:bg-zinc-700 transition-all ease-in duration-200 overflow-hidden flex gap-2 items-center"> <MessageCircleMore strokeWidth={2} className="shrink-0" /> xxxasdddddds</button>
-              <button className="w-[90%] bg-zinc-800 h-fit py-2 px-1 text-left rounded cursor-pointer hover:bg-zinc-700 transition-all ease-in duration-200 overflow-hidden flex gap-2 items-center"> <MessageCircleMore strokeWidth={2} className="shrink-0" /> xxxasdddddds</button>
-              <button className="w-[90%] bg-zinc-800 h-fit py-2 px-1 text-left rounded cursor-pointer hover:bg-zinc-700 transition-all ease-in duration-200 overflow-hidden flex gap-2 items-center"> <MessageCircleMore strokeWidth={2} className="shrink-0" /> xxxasdddddds</button>
-              <button className="w-[90%] bg-zinc-800 h-fit py-2 px-1 text-left rounded cursor-pointer hover:bg-zinc-700 transition-all ease-in duration-200 overflow-hidden flex gap-2 items-center"> <MessageCircleMore strokeWidth={2} className="shrink-0" /> xxxasdddddds</button>
+              <button className=" w-[90%] bg-zinc-900 h-fit py-2 px-1 text-left rounded cursor-pointer hover:bg-zinc-700 transition-all ease-in duration-200  flex gap-2 items-center overflow-hidden"> <Plus strokeWidth={4} className="h-4 w-4 font-bold shrink-0 ml-0.5" />  NewChat </button>
+              <button className="w-[90%] bg-zinc-900 h-fit py-2 px-1 text-left rounded cursor-pointer hover:bg-zinc-700 transition-all ease-in duration-200 overflow-hidden flex gap-2 items-center"> <MessageCircleMore strokeWidth={1.5} className="shrink-0 h-4 w-4 ml-0.5" /> xxxasdddddds</button>
+              <button className="w-[90%] bg-zinc-900 h-fit py-2 px-1 text-left rounded cursor-pointer hover:bg-zinc-700 transition-all ease-in duration-200 overflow-hidden flex gap-2 items-center"> <MessageCircleMore strokeWidth={1.5} className="shrink-0 h-4 w-4 ml-0.5" /> xxxasdddddds</button>
+              <button className="w-[90%] bg-zinc-900 h-fit py-2 px-1 text-left rounded cursor-pointer hover:bg-zinc-700 transition-all ease-in duration-200 overflow-hidden flex gap-2 items-center"> <MessageCircleMore strokeWidth={1.5} className="shrink-0 h-4 w-4 ml-0.5" /> xxxasdddddds</button>
+              <button className="w-[90%] bg-zinc-900 h-fit py-2 px-1 text-left rounded cursor-pointer hover:bg-zinc-700 transition-all ease-in duration-200 overflow-hidden flex gap-2 items-center"> <MessageCircleMore strokeWidth={1.5} className="shrink-0 h-4 w-4 ml-0.5" /> xxxasdddddds</button>
             </div>
           </div>
           <div>
@@ -117,7 +117,7 @@ export const LogoIcon = () => {
 const Dashboard = () => {
   return (
     <div className="flex flex-1">
-      <div className="flex h-full w-full flex-1 flex-col gap-2 rounded-tl-2xl border border-zinc-900 bg-zinc-900 p-2 md:p-10  ">
+      <div className="flex h-full w-full flex-1 flex-col gap-2 rounded-tl-2xl border border-zinc-800 bg-zinc-950 p-2 md:p-10  ">
         <Chat />
       </div>
     </div>
