@@ -6,9 +6,11 @@ export const currentGithub = createSlice({
         value:"",
     },
     reducers:{
-        
+        changeCurrentGithub:(state,action)=>{
+            state.value = action.payload;
+        }
     }
 })
 
-export  const {} = currentGithub.actions;
+export  const {changeCurrentGithub} = currentGithub.actions;
 export default currentGithub.reducer;
