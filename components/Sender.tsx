@@ -22,11 +22,13 @@ export const Sender = () => {
 
 
   //data to be stored interfaces
-  interface messages {
+  interface Messages {
     role: String,
     user: boolean,
-    message: string | undefined
+    userMessage: string | undefined | "no data",
+    aiMessage: any[] | undefined
   }
+
 
   //messages state for this component so it can take input from user
   const [question, setquestion] = useState<string | number | readonly string[] | undefined>("");
@@ -51,17 +53,19 @@ export const Sender = () => {
     console.log("i am aprsed data", parsedData);
 
     // now storing the data
-    const userMessage: messages = {
+    const userMessage: Messages = {
       role: "user",
       user: true,
-      message: question?.toString()
+      userMessage: question?.toString(),
+      aiMessage : undefined
     }
 
 
-    const aiResponse: messages = {
+    const aiResponse: Messages = {
       role: "ai",
       user: false,
-      message: data.Message
+      userMessage: undefined,
+      aiMessage : parsedData 
     }
     dispatch(newChat([userMessage, aiResponse]))
     setquestion("")

@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface messages{
-    role:String,
-    user:boolean,
-    message:string | undefined
-  }
+interface Messages {
+  role: String,
+  user: boolean,
+  userMessage: string | undefined | "no data",
+  aiMessage: any[] | undefined
+}
 
 interface chat {
   value: any[];
@@ -16,7 +17,7 @@ export const chatSlice = createSlice({
   name: "chats",
   initialState,
   reducers: {
-    newChat: (state, action:PayloadAction<messages[]>) => {
+    newChat: (state, action:PayloadAction<Messages[] >) => {
      state.value.push(...action.payload)
     },
   },
