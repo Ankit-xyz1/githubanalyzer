@@ -29,14 +29,16 @@ export const Sender = () => {
 
   //messages state for this component so it can take input from user
   const [question, setquestion] = useState<string | number | readonly string[] | undefined>("");
+
   //input handler 
   const questHnadler = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setquestion(e.target.value);
   }
 
   //fetching response from server
-  const getResponse = async () => {
+   const getResponse = async () => {
     //toggling loading state to true 
+    if(!question) return;
     dispatch(toggle());
 
     //soring question value and emptying it 
