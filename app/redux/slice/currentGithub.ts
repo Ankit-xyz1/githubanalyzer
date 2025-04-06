@@ -9,6 +9,7 @@ export const currentGithub = createSlice({
         changeCurrentGithub:(state,action)=>{
             state.value = action.payload;
         }
+        
     }
 })
 

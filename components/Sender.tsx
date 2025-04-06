@@ -1,9 +1,10 @@
 "use client"
 import { newChat } from '@/app/redux/slice/chatsSlice';
+import { currentGithub } from '@/app/redux/slice/currentGithub';
 import { toggle } from '@/app/redux/slice/loadingSlice';
 import { RootState } from '@/app/redux/store/store';
 import { SendHorizontal } from 'lucide-react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 
 export const Sender = () => {
@@ -12,9 +13,16 @@ export const Sender = () => {
   // created some types 
   //type TextSection = 'paragraph' | 'newline' | 'bold' | 'heading' | 'list' | 'inline-code';
   //created  parsed blocks types
-
   const chat = useSelector((state: RootState) => state.chats.value)
+  const githHub = useSelector((state: RootState) => state.currentGithub.value)
   const loading = useSelector((state: RootState) => state.loading.value)
+
+
+  useEffect(() => {
+    storeChatsToLocalStorage()
+  }, [chat])
+  
+
   const dispatch = useDispatch()
 
 
@@ -36,9 +44,9 @@ export const Sender = () => {
   }
 
   //fetching response from server
-   const getResponse = async () => {
+  const getResponse = async () => {
     //toggling loading state to true 
-    if(!question) return;
+    if (!question) return;
     dispatch(toggle());
 
     //soring question value and emptying it 
@@ -53,7 +61,7 @@ export const Sender = () => {
       aiMessage: undefined
     }
     dispatch(newChat([userMessage]))
-    
+
 
     //fetching the response from llm fpr users question
     const response = await fetch("/api/genrate", {
@@ -82,8 +90,11 @@ export const Sender = () => {
 
     //toggling back the loading state 
     dispatch(toggle());
-  }
 
+    //after response are parsed and shown to user we will store it in localstorage
+    // storeChatsToLocalStorage()
+  }
+  //creating a type or parsed data
   type ParsedBlock =
     | {
       type: 'code';
@@ -102,7 +113,7 @@ export const Sender = () => {
     };
 
 
-
+  //parrsing the code frrrom the response
   function parseLLMResponse(raw: string): ParsedBlock[] {
     const blocks: ParsedBlock[] = [];
     const codeRegex = /```(\w+)?\n([\s\S]*?)```/g;
@@ -140,13 +151,14 @@ export const Sender = () => {
     return blocks;
   }
 
+  //parsing the text from the response
   function parseTextSections(text: string): ParsedBlock[] {
     const lines = text.split('\n');
     const parsedBlocks: ParsedBlock[] = [];
-  
+
     for (const line of lines) {
       const trimmed = line.trim();
-  
+
       if (!trimmed) {
         parsedBlocks.push({
           type: 'text',
@@ -159,7 +171,7 @@ export const Sender = () => {
         });
         continue;
       }
-  
+
       const block: ParsedBlock = {
         type: 'text',
         content: trimmed,
@@ -169,7 +181,7 @@ export const Sender = () => {
         isbold: false,
         inlineCode: false,
       };
-  
+
       if (trimmed.startsWith('# ')) {
         block.isHeading = true;
       } else if (/^\*\*.+\*\*$/.test(trimmed)) {
@@ -177,15 +189,18 @@ export const Sender = () => {
       } else if (/`[^`]+`/.test(trimmed)) {
         block.inlineCode = true;
       }
-  
+
       parsedBlocks.push(block);
     }
-  
+
     return parsedBlocks;
   }
-  
-  
-  
+
+  //now we will be updating the local storage with chats and update it 
+  const storeChatsToLocalStorage = (): void => {
+    localStorage.setItem(githHub, JSON.stringify(chat))
+  }
+
   return (
     <div className='w-full h-[10vh] bg-zinc-900 rounded-2xl p-4 border border-zinc-700 flex'>
       <input type="text" className='w-[90%] h-full outline-none text-xl' name="" id="" onChange={questHnadler} value={question} />

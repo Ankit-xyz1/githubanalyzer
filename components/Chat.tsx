@@ -15,8 +15,8 @@ import Dailog from './Dailog';
 
 const Chat = () => {
   const chat = useSelector((state: RootState) => state.chats.value)
-  const loading = useSelector((state: RootState) => state.loading.value)
   const githHub = useSelector((state: RootState) => state.currentGithub.value)
+  const loading = useSelector((state: RootState) => state.loading.value)
   const dispatch = useDispatch()
 
 
