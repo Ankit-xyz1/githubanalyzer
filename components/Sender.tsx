@@ -1,6 +1,6 @@
 "use client"
 import { newChat } from '@/app/redux/slice/chatsSlice';
-import { currentGithub } from '@/app/redux/slice/currentGithub';
+import { changeCurrentGithub, currentGithub } from '@/app/redux/slice/currentGithub';
 import { toggle } from '@/app/redux/slice/loadingSlice';
 import { RootState } from '@/app/redux/store/store';
 import { SendHorizontal } from 'lucide-react'
@@ -16,15 +16,7 @@ export const Sender = () => {
   const chat = useSelector((state: RootState) => state.chats.value)
   const githHub = useSelector((state: RootState) => state.currentGithub.value)
   const loading = useSelector((state: RootState) => state.loading.value)
-
-
-  useEffect(() => {
-    storeChatsToLocalStorage()
-  }, [chat])
-  
-
   const dispatch = useDispatch()
-
 
   //data to be stored interfaces
   interface Messages {
@@ -37,6 +29,28 @@ export const Sender = () => {
 
   //messages state for this component so it can take input from user
   const [question, setquestion] = useState<string | number | readonly string[] | undefined>("");
+
+
+  useEffect(() => {
+    storeCurrentChatsToLocalStorage();
+  }, [chat])
+
+
+  //this eill be the inerface of the object in chat history obj
+  interface CurrentChatObj {
+    githubLink: string,
+    chats: any[]
+  }
+
+  //now we will be updating the local storage with chats and update it 
+  const storeCurrentChatsToLocalStorage = (): void => {
+    const curreChatTobeSaved: CurrentChatObj = {
+      githubLink: githHub,
+      chats: chat
+    }
+    localStorage.setItem("currentChat", JSON.stringify(curreChatTobeSaved))
+
+  }
 
   //input handler 
   const questHnadler = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -196,16 +210,14 @@ export const Sender = () => {
     return parsedBlocks;
   }
 
-  //now we will be updating the local storage with chats and update it 
-  const storeChatsToLocalStorage = (): void => {
-    localStorage.setItem(githHub, JSON.stringify(chat))
-  }
+
+
 
   return (
     <div className='w-full h-[10vh] bg-zinc-900 rounded-2xl p-4 border border-zinc-700 flex'>
       <input type="text" className='w-[90%] h-full outline-none text-xl' name="" id="" onChange={questHnadler} value={question} />
-      <div className="btn h-full w-[10%] flex items-center justify-center bg-blue-500 ">
-        <button className='bg-red-600 cursor-pointer p-2' onClick={() => getResponse()}> <SendHorizontal /></button>
+      <div className="btn h-full w-[10%] flex items-center justify-center     ">
+        <button className=' cursor-pointer p-2' onClick={() => getResponse()}> <SendHorizontal /></button>
       </div>
     </div>
   )

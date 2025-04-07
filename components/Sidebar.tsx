@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "./ui/sidebar";
 import {
   IconArrowLeft,
@@ -14,20 +14,60 @@ import { cn } from "@/lib/utils";
 import { History, MessageCircleMore, Plus } from "lucide-react";
 import Chat from "./Chat";
 import { changeCurrentGithub, currentGithub } from "@/app/redux/slice/currentGithub";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import {changeToNewChat} from "@/app/redux/slice/chatsSlice"
+import { changeToNewChat } from "@/app/redux/slice/chatsSlice"
+import { RootState } from "@/app/redux/store/store";
+import { loadChatsHistoryFromLocalStorage } from "@/app/redux/slice/chatHistorySlice";
 
 export function SidebarDemo() {
-  
+
   const dispatch = useDispatch();
- 
+
+  const chat = useSelector((state: RootState) => state.chats.value)
+  const githHub = useSelector((state: RootState) => state.currentGithub.value)
+  const chatHistory:any[] = useSelector((state:RootState)=> state.chatHistory.value)
+
+  useEffect(() => {
+    loadChatsHistoryFromLocalStorage();
+  }, [])
+  
+  loadChatsHistoryFromLocalStorage
   //this function just set githubs to null thats it 
-  const newChat = ():void=>{
+  const newChat = (): void => {
     dispatch(changeCurrentGithub(""));
     dispatch(changeToNewChat())
+    storeChatsToLocalStorage()
     console.log(currentGithub)
   }
+
+  //this type of array will be returned from localstorage 
+  type ChatHistoryArray = any[];
+
+  //this eill be the inerface of the object in chat history obj
+  interface ChatObj {
+    githubLink: string,
+    chats: any[]
+  }
+  const storeChatsToLocalStorage = (): void => {
+    const curreChatTobeSaved: ChatObj = {
+      githubLink: githHub,
+      chats: chat
+    }
+    const ChatHistoryFromLocalStorage = localStorage.getItem("ChatHistory");
+    if (ChatHistoryFromLocalStorage) {
+      const ChatHistory: ChatHistoryArray = JSON.parse(ChatHistoryFromLocalStorage);
+      ChatHistory.push(curreChatTobeSaved)
+      localStorage.setItem("ChatHistory", JSON.stringify(ChatHistory))
+    } else {
+      const ChatHistory: ChatHistoryArray = []
+      ChatHistory.push(curreChatTobeSaved)
+      localStorage.setItem("ChatHistory", JSON.stringify(ChatHistory))
+    }
+
+  }
+
+
   const [open, setOpen] = useState(false);
   return (
     <div
@@ -45,7 +85,9 @@ export function SidebarDemo() {
             <div className="mt-8 flex flex-col gap-2 text-white">
 
               <button onClick={newChat} className=" w-[90%] bg-zinc-900 h-fit py-2 px-1 text-left rounded cursor-pointer hover:bg-zinc-700 transition-all ease-in duration-200  flex gap-2 items-center overflow-hidden"> <Plus strokeWidth={4} className="h-4 w-4 font-bold shrink-0 ml-0.5" />  NewChat </button>
+              {chatHistory.map((item:ChatObj)=>(
               <button className="w-[90%] bg-zinc-900 h-fit py-2 px-1 text-left rounded cursor-pointer hover:bg-zinc-700 transition-all ease-in duration-200 overflow-hidden flex gap-2 items-center"> <MessageCircleMore strokeWidth={1.5} className="shrink-0 h-4 w-4 ml-0.5" /> xxxasdddddds</button>
+              ))}
 
             </div>
           </div>
