@@ -24,8 +24,11 @@ export const chatSlice = createSlice({
     changeToNewChat: (state) => {
       state.value = [];
     },
+    changeToChatsFromHistory : (state ,action)=>{
+      state.value = action.payload;
+    }
   },
 });
 
-export const { newChat ,changeToNewChat } = chatSlice.actions;
+export const { newChat ,changeToNewChat,changeToChatsFromHistory } = chatSlice.actions;
 export default chatSlice.reducer;

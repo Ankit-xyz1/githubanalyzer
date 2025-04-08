@@ -31,13 +31,12 @@ const UserPage = () => {
       const gitLink: string =
         "https://github.com/" + params.slug[0] + "/" + params.slug[1] ||
         "noLinkFound";
-      console.log("iam gitlink from search bar",gitLink);
-      changeCurrentGithub(gitLink);
-      console.log("i am github link state " ,(githHub) || "it is null");
-      
-      const questToBeSendToLLm: string = `hey this is github repository ${
-        gitLink || "no repo entered "
-      }  how to clone it in my local machine and what are the tech stack used`;
+      console.log("iam gitlink from search bar", gitLink);
+      dispatch(changeCurrentGithub(gitLink));
+      console.log("i am github link state ", (githHub) || "it is null");
+
+      const questToBeSendToLLm: string = `hey this is github repository ${gitLink || "no repo entered "
+        }  how to clone it in my local machine and what is the folder structure of this repository answer t preciesly`;
       getResponse(questToBeSendToLLm);
     }
   }, [params.slug]); //this should be only done if params changes
@@ -80,20 +79,20 @@ const UserPage = () => {
 
   type ParsedBlock =
     | {
-        type: "code";
-        isCode: boolean;
-        language: string;
-        content: string;
-      }
+      type: "code";
+      isCode: boolean;
+      language: string;
+      content: string;
+    }
     | {
-        type: "text";
-        isCode: boolean;
-        content: string;
-        isHeading: boolean;
-        newline: boolean;
-        isbold: boolean;
-        inlineCode: boolean;
-      };
+      type: "text";
+      isCode: boolean;
+      content: string;
+      isHeading: boolean;
+      newline: boolean;
+      isbold: boolean;
+      inlineCode: boolean;
+    };
 
   function parseLLMResponse(raw: string): ParsedBlock[] {
     const blocks: ParsedBlock[] = [];
@@ -179,11 +178,11 @@ const UserPage = () => {
   return (
     <>
       <div className="h-screen w-full bg-zinc-950 flex items-center justify-center">
-          <>
-            <div className="h-screen w-full xxxxx">
-              <MainComp />
-            </div>
-          </>
+        <>
+          <div className="h-screen w-full xxxxx">
+            <MainComp />
+          </div>
+        </>
       </div>
     </>
   );

@@ -13,8 +13,13 @@ export const chatHistorySlice = createSlice({
     initialState,
     reducers: {
         loadChatsHistoryFromLocalStorage: (state) => {
-            const loadedChat = JSON.parse(localStorage.getItem("ChatHistory") || "[]");
-            state.value = Array.isArray(loadedChat) ? loadedChat : [];
+            const data: string | null = localStorage.getItem("ChatHistory");
+            const realdata = data ? data : "data is null"
+            if (data) { 
+                const loadedChat = JSON.parse(realdata);
+                console.log("value from localstrage", loadedChat);
+                state.value = Array.isArray(loadedChat) ? loadedChat : [];
+            }
         },
     }
 });

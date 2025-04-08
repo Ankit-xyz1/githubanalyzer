@@ -64,7 +64,8 @@ export const Sender = () => {
     dispatch(toggle());
 
     //soring question value and emptying it 
-    const userChat = question;
+    console.log("i am github link from this func",githHub)
+    const userChat = `this is ${githHub} repository link and here is my question ${question} `;
     setquestion("")
 
     //storing user chat in the chatss array 
@@ -215,7 +216,7 @@ export const Sender = () => {
 
   return (
     <div className='w-full h-[10vh] bg-zinc-900 rounded-2xl p-4 border border-zinc-700 flex'>
-      <input type="text" className='w-[90%] h-full outline-none text-xl' name="" id="" onChange={questHnadler} value={question} />
+      <input type="text" className='w-[90%] h-full outline-none text-xl' name="" id="" placeholder='ask something' onChange={questHnadler} value={question} />
       <div className="btn h-full w-[10%] flex items-center justify-center     ">
         <button className=' cursor-pointer p-2' onClick={() => getResponse()}> <SendHorizontal /></button>
       </div>

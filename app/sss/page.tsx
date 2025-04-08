@@ -12,7 +12,7 @@ import { changeToNewChat, newChat } from "../redux/slice/chatsSlice";
 const page = () => {
   const githHub = useSelector((state: RootState) => state.currentGithub.value);
   const dispatch = useDispatch()
-  
+
   //this will be the inerface of the object in chat history obj
   interface CurrentChatObj {
     githubLink: string,
@@ -23,10 +23,12 @@ const page = () => {
     // This runs only once on initial render (like on refresh)
     const data = localStorage.getItem('currentChat');
     const parsedData: CurrentChatObj = data ? JSON.parse(data) : null;
-    console.log("i am parsed data", parsedData)
+    if (parsedData && data) {
+      console.log("i am parsed data", parsedData)
       dispatch(changeToNewChat())
       dispatch(changeCurrentGithub(parsedData.githubLink))
       dispatch(newChat(parsedData.chats))
+    }
   }, []);
 
 
