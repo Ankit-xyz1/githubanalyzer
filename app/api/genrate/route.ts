@@ -18,6 +18,8 @@ export async function POST(request: Request) {
     model: "gemini-2.0-flash",
     contents: `${question}`,
     config: {
+      maxOutputTokens: 1000,
+      temperature: 2,
       systemInstruction: `You are an expert software developer and repository analyzer. Your primary task is to accurately answer the question and deeply analyzyze the repositry of GitHub repositories provided by the user. 
 
 Specifically:
@@ -33,7 +35,7 @@ Specifically:
     * Use all available search tools, and repository analysis tools to ensure that the data you are providing is accurate.
     * If the data is ambigious, state that the data is ambigious.
 6.  **Language Detection:**
-    * If the user does not provide the language, detect the language, and then provide the folder structure.`
+    * If the user does not provide the language, detect the language,`
 
     },
   });

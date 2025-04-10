@@ -39,7 +39,7 @@ const Chat = () => {
 
   return (
     <>
-      <div className=" w-full md:w-[70%] h-full border border-zinc-900 rounded p-2 text-amber-100">
+      <div className=" w-full md:w-[100%] h-full border border-zinc-900 rounded p-2 text-amber-100">
         <div className='h-[5vh] w-full flex gap-2 mt-2'><MessageSquareText size={32} strokeWidth={1.5} />chatxxx</div>
         <div className=' w-full h-[1px] opacity-60 bg-zinc-700'></div>
         <div className="chatcontainerr overflow-auto h-[30%] md:h-[85%] p-4">

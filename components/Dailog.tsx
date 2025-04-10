@@ -47,7 +47,7 @@ const Dailog = () => {
     console.log("hello");
     dispatch(changeCurrentGithub(gitInputValue));
 
-    const questToBeSendToLLm:string = `hey this is github repository ${gitInputValue || "no repo entered "}  how to clone it in my local machine and what are the tech stack used`;
+    const questToBeSendToLLm:string = `hey this is github repository ${gitInputValue || "no repo entered "}  what is this repository about ? how to clone it in my local machine and what are the tech stack used in this project and give me appropriate folder structure`;
     getResponse(questToBeSendToLLm);
   };
 
