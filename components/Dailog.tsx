@@ -47,14 +47,14 @@ const Dailog = () => {
     console.log("hello");
     dispatch(changeCurrentGithub(gitInputValue));
 
-    const questToBeSendToLLm:string = `hey this is github repository ${gitInputValue || "no repo entered "}  what is this repository about ? how to clone it in my local machine and what are the tech stack used in this project and give me appropriate folder structure`;
+    const questToBeSendToLLm: string = `hey this is github repository ${gitInputValue || "no repo entered "}  what is this repository about ? how to clone it in my local machine and what are the tech stack used in this project and give me appropriate folder structure`;
     getResponse(questToBeSendToLLm);
   };
 
 
 
-  const getResponse = async (quest:string) => {
-    if(!quest) return ;
+  const getResponse = async (quest: string) => {
+    if (!quest) return;
     //toggling loading state to true
     dispatch(toggle());
 
@@ -91,20 +91,20 @@ const Dailog = () => {
 
   type ParsedBlock =
     | {
-        type: "code";
-        isCode: boolean;
-        language: string;
-        content: string;
-      }
+      type: "code";
+      isCode: boolean;
+      language: string;
+      content: string;
+    }
     | {
-        type: "text";
-        isCode: boolean;
-        content: string;
-        isHeading: boolean;
-        newline: boolean;
-        isbold: boolean;
-        inlineCode: boolean;
-      };
+      type: "text";
+      isCode: boolean;
+      content: string;
+      isHeading: boolean;
+      newline: boolean;
+      isbold: boolean;
+      inlineCode: boolean;
+    };
 
   function parseLLMResponse(raw: string): ParsedBlock[] {
     const blocks: ParsedBlock[] = [];
@@ -188,40 +188,57 @@ const Dailog = () => {
   }
   return (
     <>
-      <AlertDialog>
-        <AlertDialogTrigger asChild className="bg-zinc-900 text-amber-100">
-          <Button variant="outline" className="bg-zinc-800 text-white">
-            GetStarted
-          </Button>
-        </AlertDialogTrigger>
-        <AlertDialogContent className="bg-zinc-900 text-amber-100">
-          <AlertDialogHeader>
-            <AlertDialogTitle>Enter a github Link</AlertDialogTitle>
-            <AlertDialogDescription>
-              <input
-                className="border-white border-1 p-2 rounded h-10 w-[70%] outline-none text-white"
-                value={gitInputValue}
-                onChange={handleInputChange}
-                type="text"
-              />
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel className="border-2 border-white bg-zinc-800 rounded-md cursor-pointer">
-              Cancel
-            </AlertDialogCancel>
-            <div className="border-2 border-white bg-zinc-800 rounded-md cursor-pointer">
-              <Button
-                variant="outline"
-                className="bg-zinc-800 text-white"
-                onClick={() => updateGithub()}
-              >
-                letsGo
-              </Button>
+      <div className="flex items-center justify-center gap-5">
+
+        <div>
+          <h2 className="text-2xl relative z-20 md:text-4xl lg:text-7xl font-bold text-center text-white font-sans tracking-tight">
+            <div className="relative mx-auto inline-block w-max [filter:drop-shadow(0px_1px_3px_rgba(27,_37,_80,_0.14))]">
+              <div className="absolute left-0 top-[1px] bg-clip-text bg-no-repeat text-transparent bg-gradient-to-r py-4 from-purple-500 via-violet-500 to-pink-500 [text-shadow:0_0_rgba(0,0,0,0.1)]">
+                <span className="">Enter a Repo Link -{">"}{" "}</span>
+              </div>
+              <div className="relative bg-clip-text text-transparent bg-no-repeat bg-gradient-to-r from-purple-500 via-violet-500 to-pink-500 py-4">
+                <span className="">Enter a Repo Link -{">"}{" "}</span>
+              </div>
             </div>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+          </h2>
+        </div>
+        <div className="block">
+          <AlertDialog>
+            <AlertDialogTrigger asChild className="bg-zinc-900 text-amber-100">
+              <Button variant="outline" className="bg-zinc-800 text-white cursor-pointer mt-2">
+                To GetStarted
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent className="bg-zinc-900 text-amber-100">
+              <AlertDialogHeader>
+                <AlertDialogTitle>Enter a github Link</AlertDialogTitle>
+                <AlertDialogDescription>
+                  <input
+                    className="border-white border-1 p-2 rounded h-10 w-[70%] outline-none text-white"
+                    value={gitInputValue}
+                    onChange={handleInputChange}
+                    type="text"
+                  />
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel className="border-2 border-white bg-zinc-800 rounded-md cursor-pointer">
+                  Cancel
+                </AlertDialogCancel>
+                <div className="border-2 border-white bg-zinc-800 rounded-md cursor-pointer">
+                  <Button
+                    variant="outline"
+                    className="bg-zinc-800 text-white"
+                    onClick={() => updateGithub()}
+                  >
+                    letsGo
+                  </Button>
+                </div>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </div>
+      </div>
     </>
   );
 };
